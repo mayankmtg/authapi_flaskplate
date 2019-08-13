@@ -1,0 +1,38 @@
+# --------------------------------------- START OF LICENSE NOTICE ------------------------------------------------------
+# Copyright (c) 2019 Software Robotics Corporation Limited ("Soroco"). All rights reserved.
+#
+# NO WARRANTY. THE PRODUCT IS PROVIDED BY SOROCO "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+# SHALL SOROCO BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE PRODUCT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+# DAMAGE.
+# ---------------------------------------- END OF LICENSE NOTICE -------------------------------------------------------
+#
+#   Primary Author: Mayank Mohindra <mayank.mohindra@soroco.com>
+#
+#   Purpose: Requirements file for authapi_flaskplate project initiation
+
+asn1crypto==0.24.0
+astroid==2.2.5
+cffi==1.12.3
+Click==7.0
+colorama==0.4.1
+cryptography==2.7
+Flask==1.1.1
+Flask-SQLAlchemy==2.4.0
+isort==4.3.21
+itsdangerous==1.1.0
+Jinja2==2.10.1
+lazy-object-proxy==1.4.1
+MarkupSafe==1.1.1
+mccabe==0.6.1
+pycparser==2.19
+PyJWT==1.7.1
+pylint==2.3.1
+six==1.12.0
+SQLAlchemy==1.3.6
+typed-ast==1.4.0
+Werkzeug==0.15.5
+wrapt==1.11.2
