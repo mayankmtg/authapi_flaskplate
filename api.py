@@ -50,10 +50,7 @@ def authentication_check(usertype):
     Function decorator for authentication the user if that is the admin
     
     Args:
-        usertype(str): either 'admin' or 'non-admin'
-    
-    Returns:
-        None
+        usertype(str): either 'admin' or 'nonadmin'
     """
     def wrap(func):
         def inner(*args, **kwargs):
@@ -74,6 +71,15 @@ def authentication_check(usertype):
 @app.route(Urls.USER.value, methods = ['POST'])
 @authentication_check('admin')
 def createUser(current_user):
+    """
+    Adding new user to the system (SQLAlchemy database)
+    
+    Args:
+        current_user: passed from the authentication_check decorator. Contains the extracted logged in user
+    
+    Returns:
+        JSON response
+    """
     data = request.get_json()
     hashed_password = generate_password_hash(data['password'], method='sha256')
     new_user = User(public_id=str(uuid.uuid4()), username=data['username'], password=hashed_password, admin=False)
@@ -85,6 +91,15 @@ def createUser(current_user):
 @app.route(Urls.USER.value, methods = ['GET'])
 @authentication_check('admin')
 def getUsers(current_user):
+    """
+    Getting all user registered in the system (SQLAlchemy database)
+    
+    Args:
+        current_user: passed from the authentication_check decorator. Contains the extracted logged in user (using authentication header)
+    
+    Returns:
+        JSON response
+    """
     users = User.query.all()
     output = []
     for user in users:
@@ -99,6 +114,16 @@ def getUsers(current_user):
 @app.route(Urls.USERIND.value, methods = ['GET'])
 @authentication_check('admin')
 def getUser(current_user, public_id):
+    """
+    Getting a particular user from the system
+    
+    Args:
+        current_user: passed from the authentication_check decorator. Contains the extracted logged in user
+        public_id: URL passed parameter (public component of the user_id)
+
+    Returns:
+        JSON response
+    """
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
         return jsonify(message_dict("No user found!"))
@@ -113,6 +138,16 @@ def getUser(current_user, public_id):
 @app.route(Urls.USERIND.value, methods = ['PUT'])
 @authentication_check('admin')
 def promoteUser(current_user, public_id):
+    """
+    Extending the admin status to any of the passed users in the URL
+    
+    Args:
+        current_user: passed from the authentication_check decorator. Contains the extracted logged in user
+        public_id: public id for the user whose status needs to be promoted
+    
+    Returns:
+        JSON response
+    """
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
         return jsonify(message_dict("No user found!"))
@@ -124,6 +159,16 @@ def promoteUser(current_user, public_id):
 @app.route(Urls.USERIND.value, methods= ["DELETE"])
 @authentication_check('admin')
 def deleteUser(current_user, public_id):
+    """
+    Deleting an existent user
+    
+    Args:
+        current_user: passed from the authentication_check decorator. Contains the extracted logged in user
+        public_id: Public id for the user whose instance needs to be deleted
+    
+    Returns:
+        JSON response
+    """
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
         return jsonify(message_dict('No user found!'))
@@ -134,6 +179,9 @@ def deleteUser(current_user, public_id):
 
 @app.route('/login')
 def login():
+    """
+    Logging in to get the authentication token (validity 30 mins) for the session
+    """
     auth = request.authorization
     if not auth or not auth.username or not auth.password:
         return loginError()
