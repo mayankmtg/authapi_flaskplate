@@ -43,6 +43,9 @@ class User(db.Model):
 # 
 
 def loginError():
+    """
+    Authentication error response
+    """
     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
 def authentication_check(usertype):
