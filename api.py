@@ -30,7 +30,7 @@ class User(db.Model):
 # Create any models here
 # 
 
-def loginError():
+def login_error():
     """
     Authentication error response
     """
@@ -61,7 +61,7 @@ def authentication_check(usertype):
 
 @app.route(Urls.USER.value, methods = ['POST'])
 @authentication_check('admin')
-def createUser(current_user):
+def create_user(current_user):
     """
     Adding new user to the system (SQLAlchemy database)
     
@@ -81,7 +81,7 @@ def createUser(current_user):
 
 @app.route(Urls.USER.value, methods = ['GET'])
 @authentication_check('admin')
-def getUsers(current_user):
+def get_users(current_user):
     """
     Getting all user registered in the system (SQLAlchemy database)
     
@@ -104,7 +104,7 @@ def getUsers(current_user):
     
 @app.route(Urls.USERIND.value, methods = ['GET'])
 @authentication_check('admin')
-def getUser(current_user, public_id):
+def get_user(current_user, public_id):
     """
     Getting a particular user from the system
     
@@ -128,7 +128,7 @@ def getUser(current_user, public_id):
 
 @app.route(Urls.USERIND.value, methods = ['PUT'])
 @authentication_check('admin')
-def promoteUser(current_user, public_id):
+def promote_user(current_user, public_id):
     """
     Extending the admin status to any of the passed users in the URL
     
@@ -149,7 +149,7 @@ def promoteUser(current_user, public_id):
 
 @app.route(Urls.USERIND.value, methods= ["DELETE"])
 @authentication_check('admin')
-def deleteUser(current_user, public_id):
+def delete_user(current_user, public_id):
     """
     Deleting an existent user
     
@@ -175,14 +175,14 @@ def login():
     """
     auth = request.authorization
     if not auth or not auth.username or not auth.password:
-        return loginError()
+        return login_error()
     user = User.query.filter_by(username=auth.username).first()
     if not user:
-        return loginError()
+        return login_error()
     if check_password_hash(user.password, auth.password):
         token = jwt.encode({'public_id' : user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
         return jsonify(return_dict('token', token.decode('UTF-8')))
-    return loginError()
+    return login_error()
 
 
 if __name__ == '__main__':
