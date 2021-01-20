@@ -1,6 +1,15 @@
 # authapi_flaskplate
 
-Flask Authentication API template
+Flask authentication boilerplate
+
+## Installation
+
+```
+$ pip install -r requirements.txt
+$ python create_admin.py
+```
+
+## Deployment
 
 ## Endpoints
 
@@ -12,3 +21,7 @@ Flask Authentication API template
 - GET: Getting a particular user from the system
 - PUT: Extending the admin status to any of the passed users in the URL
 - DELETE: Deleting an existent user
+
+### /login
+
+Send HTTP basic authentication request

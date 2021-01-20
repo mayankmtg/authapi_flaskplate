@@ -47,7 +47,7 @@ def authentication_check(usertype):
         def inner(*args, **kwargs):
             try:
                 token = request.headers['x-access-token']
-                data = jwt.decode(token, app.config['SECRET_KEY'])
+                data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
                 current_user = User.query.filter_by(public_id=data['public_id']).first()
                 if(usertype == 'admin' and not current_user.admin):
                     raise Exception("error \t - \t not enough permissions for this operation")
@@ -180,8 +180,8 @@ def login():
     if not user:
         return login_error()
     if check_password_hash(user.password, auth.password):
-        token = jwt.encode({'public_id' : user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-        return jsonify(return_dict('token', token.decode('UTF-8')))
+        token = jwt.encode({'public_id' : user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'], algorithm="HS256")
+        return jsonify(return_dict('token', token))
     return login_error()
 
 
