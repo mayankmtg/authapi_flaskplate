@@ -7,15 +7,15 @@ from flask_sqlalchemy import SQLAlchemy
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from urls import Urls
-from utils import message_dict, return_dict
+from utils import message_dict, return_dict, load_yaml
 import datetime
 import jwt
 
-
+config = load_yaml('config.yaml')
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mayank'
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
+app.config['SECRET_KEY'] = config.get('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = config.get('DATABASE_URI')
 
 db = SQLAlchemy(app)
 

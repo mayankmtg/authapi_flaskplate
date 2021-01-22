@@ -3,10 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 import uuid
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mayank'
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
+from utils import load_yaml
 
+config = load_yaml('config.yaml')
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = config.get('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = config.get('DATABASE_URI')
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -18,8 +21,8 @@ class User(db.Model):
 
 db.create_all()
 
-username = 'admin'
-password = 'admin'
+username = config.get('ADMIN_USERNAME')
+password = config.get('ADMIN_PASSWORD')
 
 hashed_password = generate_password_hash(password, method='sha256')
 new_user = User(public_id=str(uuid.uuid4()), username=username, password=hashed_password, admin=True)
