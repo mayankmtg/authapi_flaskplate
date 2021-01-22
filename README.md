@@ -4,12 +4,17 @@ Flask authentication boilerplate
 
 ## Installation
 
+Change values in ```config.yaml```
+
 ```
 $ pip install -r requirements.txt
 $ python create_admin.py
 ```
 
-## Deployment
+## Run Application
+```
+$ python api.py
+```
 
 ## Endpoints
 
