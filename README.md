@@ -30,3 +30,4 @@ $ python api.py
 ### /login
 
 Send HTTP basic authentication request
+
