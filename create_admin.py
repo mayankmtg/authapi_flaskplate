@@ -1,3 +1,7 @@
+#   Primary Author: Mayank Mohindra <mayankmohindra06@gmail.com>
+#
+#   Purpose: db.sqlite3 initiate 
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
